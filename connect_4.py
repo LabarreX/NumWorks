@@ -20,11 +20,8 @@ def show () :
       draw_string(grid[j][i],50+30*j,177-30*i)
   x, y = selected, dispo[selected]
   if y < 6 :
-    fill_rect(39+30*x,171-30*y,3,30,color(255,0,0))
-    fill_rect(39+30*x,199-30*y,33,3,color(255,0,0))
-    fill_rect(69+30*x,171-30*y,3,30,color(255,0,0))
-    fill_rect(39+30*x,169-30*y,33,3,color(255,0,0))
-  sleep(0.2)
+    draw_empty_rect(40+30*x,170-30*y,30,30,3,color(255,0,0))
+  sleep(0.1)
 
 def select() :
   global selected
@@ -52,15 +49,17 @@ def win(x,y) :
     l = 0
     while grid[i*l+x][j*l+y] == player :
       l += 1
-      if not ( 0 <= i*l+x < 6 and 0 <= j*l+y < 6 ) :
+      if not ( 0 <= i*l+x < 7 and 0 <= j*l+y < 6 ) :
         break
-    ll = 1
+    start = (55 + 30*(i*(l-1)+x), 185 - 30*(j*(l-1)+y))
+    ll = 0
     while grid[-i*ll+x][-j*ll+y] == player :
       ll += 1
-      if not ( 0 <= -i*ll+x < 6 and 0 <= -j*ll+y < 6 ) :
+      if not ( 0 <= -i*ll+x < 7 and 0 <= -j*ll+y < 6 ) :
         break
+    end = (55 + 30*(-i*(ll-1)+x), 185 - 30*(-j*(ll-1)+y))
     if l+ll >= 5 :
-      draw_line(40+30*(x-ll*i),200-30*(y-ll*i),40+30*(x+l*i),200-30*(y+l*i),2,color(255,0,0))
+      draw_line(start[0],start[1],end[0],end[1],4,color(255,0,0))
       return True
   return False
 
@@ -73,10 +72,9 @@ while True :
     break
   dispo[selected] += 1
   player = "X" if player == "O" else "O"
-  sleep(0.2)
+  sleep(0.1)
   
 
 draw_string(player,270,100)
 draw_string("won !",265,115)
 print(player, "won")
-draw_line(190,40,50,200,2,color(255,0,0))
