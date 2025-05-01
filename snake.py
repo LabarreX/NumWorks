@@ -4,7 +4,6 @@ from random import *
 from ion import *
 
 t = (21,31)
-#0:droite, 1:bas
 d = 0
 s= [(2,2)]
 p = []
@@ -67,6 +66,6 @@ while True :
     ok = move (d)
     if not ok :
         break
-draw_string("PERDU",100,115)
-print ("Fin")
+draw_string("YOU LOST",100,115)
+print ("The end")
 print ("Score :", len(s)-1)
